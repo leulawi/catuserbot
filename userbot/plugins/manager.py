@@ -169,7 +169,8 @@ async def do_log_pm_action(chat_id, event, message_text, message_media):
     the_message += f"[User](tg://user?id={chat_id}): {chat_id}\n"
     the_message += f"Message: {message_text}\n"
     #the_message += f"Media: {message_media}"
-    await event.client.send_message(
+    if event.message.message:
+        await event.client.send_message(
         entity=Config.PM_LOGGR_BOT_API_ID,
         message=the_message,
         # reply_to=,
@@ -177,4 +178,6 @@ async def do_log_pm_action(chat_id, event, message_text, message_media):
         link_preview=False,
         file=message_media,
         silent=True
-    )
+        )
+    else:
+        return
