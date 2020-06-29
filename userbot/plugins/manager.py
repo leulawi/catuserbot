@@ -77,15 +77,14 @@ async def on_new_private_message(event):
 
     if not event.is_private:
         return
-
+    if event.from_id == bot.uid:
+        return
     message_text = event.message.message
     message_media = event.message.media
     message_id = event.message.id
     message_to_id = event.message.to_id
-    chat_id = event.chat_id
+    chat_id = event.from_id
     # logger.info(chat_id)
-
-
     sender = await event.client.get_entity(chat_id)
     if chat_id == borg.uid:
         # don't log Saved Messages
